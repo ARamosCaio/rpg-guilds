@@ -1,15 +1,20 @@
 {
-    "guilds": [
-        {
-            "id": "2511",
-            "name": "Sentinelas"
-        }
-    ],
-    "members": [
-        {
-            "id":"0ad5",
-            "name": "Selene Nightingale",
-            "guildId": "2511"
-        }
-    ]
+  "guilds": [
+    {
+      "id": "de42",
+      "name": "Os mano1"
+    }
+  ],
+  "members": [
+    {
+      "id": "0ad5",
+      "name": "Selene Nightingale",
+      "guildId": null
+    },
+    {
+      "id": "ef73",
+      "name": "justo",
+      "guildId": "de42"
+    }
+  ]
 }

@@ -1,11 +1,14 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import requester from "../axios";
 
+
+
 export function GuildForm(props) {
     const { guildId } = useParams();
     const [guild, setGuild] = useState();
+    const navigate = useNavigate();
 
 
     const addGuild = async (guild) => {
@@ -13,7 +16,7 @@ export function GuildForm(props) {
     const create = { name };
 
     try {
-        const response = await requester.post ("/guilds", create);
+        const response = await requester.post("/guilds", create);
         props.updateGuilds?.(response.data);
     }
     catch (error) {
@@ -46,6 +49,7 @@ export function GuildForm(props) {
         try {
             const response = await requester.patch(`/guilds/${id}`, updated);
             setGuild(response.data)
+            
         } catch (error) {
             console.error("Erro ao editar a guilda:", error)
         }
@@ -56,6 +60,7 @@ export function GuildForm(props) {
     const onSubmit = (e) => {
         e.preventDefault();
         handleSubmit(guild);
+        navigate("/guilds")
     }
 
 

@@ -15,6 +15,7 @@ export function Guilds() {
             try {
                 const response = await requester.get("/guilds");
                 setGuilds(response.data);
+                
             } catch (error) {
                 console.error("Erro ao buscar as guildas:", error);
             }
@@ -36,11 +37,12 @@ export function Guilds() {
         <div className="flex flex-col gap-4 p-5 text-orange-500">
             <h1>Guilda</h1>
             <ul>
-                {guilds.map((guilds) => (
-                    <li key={guilds.id} className="cursor-pointer flex gap-4 items-center">
+    
+                {guilds.map((guild) => (
+                    <li key={guild.id} className="cursor-pointer flex gap-4 items-center">
                         {guild.name}
-                        <button onClick={() => navigate(guilds.id)}>Editar</button>
-                        <button onClick={() => deleteGuild(guilds)}>Excluir</button>
+                        <button onClick={() => navigate(guild.id)}>Editar</button>
+                        <button onClick={() => deleteGuild(guild)}>Excluir</button>
                     </li>
 
                 ))}

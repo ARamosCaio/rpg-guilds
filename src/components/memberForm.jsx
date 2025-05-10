@@ -1,11 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import requester from "../axios";
 
 export function MemberForm(props) {
     const { memberId } = useParams();
     const [member, setMember] = useState();
     const [guilds, setGuilds] = useState([]);
+    const navigate = useNavigate()
 
     useEffect(() => {
         const getGuilds = async () => {
@@ -40,7 +42,7 @@ export function MemberForm(props) {
     useEffect(() => {
         const getMember = async () => {
             try {
-                const response = await requester.get(`/member/${memberId}`);
+                const response = await requester.get(`/members/${memberId}`);
                 setMember(response.data);
             } catch (error) {
                 console.error("Erro ao buscar o membro:", error);
@@ -49,11 +51,29 @@ export function MemberForm(props) {
         if (memberId) getMember();
     }, [memberId]);
 
+    const editMember = async (member) => {
+            const {id, name} = member;
+    
+            const updated = {
+                name,
+            }
+    
+            try {
+                const response = await requester.patch(`/members/${id}`, updated);
+                setMember(response.data)
+                console.log("ID do membro", id)
+                
+            } catch (error) {
+                console.error("Erro ao editar a guilda:", error)
+            }
+        };
+
     const handleSubmit = memberId ? editMember : addMember;
 
     const onSubmit = (e) => {
         e.preventDefault();
         handleSubmit(member);
+        navigate("/members")
     }
     
 
